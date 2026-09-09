@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Turbat - Canteen Back Office</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <h1 class="logo">UOT Canteen</h1>
+                <p class="subtitle">Back Office</p>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#dashboard" class="nav-link active" data-page="dashboard">
+                        <span class="icon">📊</span>
+                        <span class="text">Dashboard</span>
+                    </a></li>
+                    <li><a href="#inventory" class="nav-link" data-page="inventory">
+                        <span class="icon">📦</span>
+                        <span class="text">Inventory</span>
+                    </a></li>
+                    <li><a href="#orders" class="nav-link" data-page="orders">
+                        <span class="icon">🛒</span>
+                        <span class="text">Orders</span>
+                    </a></li>
+                    <li><a href="#storage" class="nav-link" data-page="storage">
+                        <span class="icon">🏢</span>
+                        <span class="text">Storage</span>
+                    </a></li>
+                    <li><a href="#employees" class="nav-link" data-page="employees">
+                        <span class="icon">👥</span>
+                        <span class="text">Employees</span>
+                    </a></li>
+                    <li><a href="#account" class="nav-link" data-page="account">
+                        <span class="icon">⚙️</span>
+                        <span class="text">Account</span>
+                    </a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">☰</button>
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search...">
+                        <button>🔍</button>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                        <span>Manager</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Pages -->
+            <section class="content-area">
+
+                <!-- Dashboard Page -->
+                <div id="dashboard" class="page active">
+                    <div class="page-header">
+                        <h2>Dashboard</h2>
+                        <p>Welcome to University of Turbat Canteen Management System</p>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-content">
+                                <h3>Total Items</h3>
+                                <p class="stat-value">245</p>
+                                <span class="stat-change">+12 this month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🛒</div>
+                            <div class="stat-content">
+                                <h3>Total Orders</h3>
+                                <p class="stat-value">1,324</p>
+                                <span class="stat-change">+234 this month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <h3>Revenue</h3>
+                                <p class="stat-value">$42,500</p>
+                                <span class="stat-change">+18% this month</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-content">
+                                <h3>Employees</h3>
+                                <p class="stat-value">28</p>
+                                <span class="stat-change">+3 this month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-charts">
+                        <div class="chart-container">
+                            <h3>Monthly Sales Trend</h3>
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Popular Items</h3>
+                            <ul class="popular-items">
+                                <li>Pizza - 234 orders</li>
+                                <li>Burger - 198 orders</li>
+                                <li>Biryani - 176 orders</li>
+                                <li>Juice - 145 orders</li>
+                                <li>Fries - 123 orders</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Inventory Page -->
+                <div id="inventory" class="page">
+                    <div class="page-header">
+                        <h2>Inventory Management</h2>
+                        <button class="btn btn-primary" id="addItemBtn">+ Add New Item</button>
+                    </div>
+                    <div class="filters">
+                        <input type="text" placeholder="Search items...">
+                        <select>
+                            <option>All Categories</option>
+                            <option>Food</option>
+                            <option>Beverages</option>
+                            <option>Snacks</option>
+                        </select>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Item ID</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Reorder Level</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTable">
+                            <tr>
+                                <td>#001</td>
+                                <td>Pizza (Large)</td>
+                                <td>Food</td>
+                                <td>45</td>
+                                <td>$12.99</td>
+                                <td>20</td>
+                                <td><span class="status-badge in-stock">In Stock</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-edit">Edit</button>
+                                    <button class="btn-small btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#002</td>
+                                <td>Burger</td>
+                                <td>Food</td>
+                                <td>12</td>
+                                <td>$8.50</td>
+                                <td>15</td>
+                                <td><span class="status-badge low-stock">Low Stock</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-edit">Edit</button>
+                                    <button class="btn-small btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#003</td>
+                                <td>Orange Juice</td>
+                                <td>Beverages</td>
+                                <td>0</td>
+                                <td>$3.99</td>
+                                <td>10</td>
+                                <td><span class="status-badge out-stock">Out of Stock</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-edit">Edit</button>
+                                    <button class="btn-small btn-delete">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Orders Page -->
+                <div id="orders" class="page">
+                    <div class="page-header">
+                        <h2>Orders Management</h2>
+                        <button class="btn btn-primary" id="newOrderBtn">+ New Order</button>
+                    </div>
+                    <div class="filters">
+                        <input type="text" placeholder="Search orders...">
+                        <select>
+                            <option>All Status</option>
+                            <option>Pending</option>
+                            <option>Processing</option>
+                            <option>Completed</option>
+                            <option>Cancelled</option>
+                        </select>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total Amount</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable">
+                            <tr>
+                                <td>#ORD-001</td>
+                                <td>Ahmed Khan</td>
+                                <td>2x Pizza, 1x Juice</td>
+                                <td>$28.97</td>
+                                <td>2026-09-09</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-view">View</button>
+                                    <button class="btn-small btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-002</td>
+                                <td>Fatima Ali</td>
+                                <td>3x Burger, 2x Fries</td>
+                                <td>$35.48</td>
+                                <td>2026-09-08</td>
+                                <td><span class="status-badge processing">Processing</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-view">View</button>
+                                    <button class="btn-small btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ORD-003</td>
+                                <td>Hassan Raza</td>
+                                <td>1x Biryani</td>
+                                <td>$9.99</td>
+                                <td>2026-09-07</td>
+                                <td><span class="status-badge completed">Completed</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-view">View</button>
+                                    <button class="btn-small btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Storage Page -->
+                <div id="storage" class="page">
+                    <div class="page-header">
+                        <h2>Storage Management</h2>
+                        <button class="btn btn-primary" id="addStorageBtn">+ Add Storage Location</button>
+                    </div>
+                    <div class="storage-grid">
+                        <div class="storage-card">
+                            <div class="storage-header">
+                                <h3>Main Refrigerator</h3>
+                                <span class="storage-type">Cold Storage</span>
+                            </div>
+                            <div class="storage-info">
+                                <p><strong>Capacity:</strong> 500 kg</p>
+                                <p><strong>Current Use:</strong> 385 kg (77%)</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 77%"></div>
+                                </div>
+                                <p><strong>Temperature:</strong> 4°C</p>
+                                <p><strong>Items:</strong> 24</p>
+                            </div>
+                            <div class="storage-actions">
+                                <button class="btn-small btn-view">View Items</button>
+                                <button class="btn-small btn-edit">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="storage-card">
+                            <div class="storage-header">
+                                <h3>Freezer Unit A</h3>
+                                <span class="storage-type">Frozen Storage</span>
+                            </div>
+                            <div class="storage-info">
+                                <p><strong>Capacity:</strong> 300 kg</p>
+                                <p><strong>Current Use:</strong> 215 kg (72%)</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 72%"></div>
+                                </div>
+                                <p><strong>Temperature:</strong> -18°C</p>
+                                <p><strong>Items:</strong> 18</p>
+                            </div>
+                            <div class="storage-actions">
+                                <button class="btn-small btn-view">View Items</button>
+                                <button class="btn-small btn-edit">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="storage-card">
+                            <div class="storage-header">
+                                <h3>Dry Storage</h3>
+                                <span class="storage-type">Room Temperature</span>
+                            </div>
+                            <div class="storage-info">
+                                <p><strong>Capacity:</strong> 1000 kg</p>
+                                <p><strong>Current Use:</strong> 620 kg (62%)</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 62%"></div>
+                                </div>
+                                <p><strong>Temperature:</strong> 20°C</p>
+                                <p><strong>Items:</strong> 42</p>
+                            </div>
+                            <div class="storage-actions">
+                                <button class="btn-small btn-view">View Items</button>
+                                <button class="btn-small btn-edit">Edit</button>
+                            </div>
+                        </div>
+
+                        <div class="storage-card">
+                            <div class="storage-header">
+                                <h3>Pantry</h3>
+                                <span class="storage-type">Shelving</span>
+                            </div>
+                            <div class="storage-info">
+                                <p><strong>Capacity:</strong> 200 kg</p>
+                                <p><strong>Current Use:</strong> 145 kg (73%)</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 73%"></div>
+                                </div>
+                                <p><strong>Temperature:</strong> 20°C</p>
+                                <p><strong>Items:</strong> 15</p>
+                            </div>
+                            <div class="storage-actions">
+                                <button class="btn-small btn-view">View Items</button>
+                                <button class="btn-small btn-edit">Edit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employees Page -->
+                <div id="employees" class="page">
+                    <div class="page-header">
+                        <h2>Employees Management</h2>
+                        <button class="btn btn-primary" id="addEmployeeBtn">+ Add Employee</button>
+                    </div>
+                    <div class="filters">
+                        <input type="text" placeholder="Search employees...">
+                        <select>
+                            <option>All Departments</option>
+                            <option>Kitchen</option>
+                            <option>Cashier</option>
+                            <option>Delivery</option>
+                            <option>Management</option>
+                        </select>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeesTable">
+                            <tr>
+                                <td>#EMP-001</td>
+                                <td>Muhammad Ali</td>
+                                <td>Kitchen</td>
+                                <td>Head Chef</td>
+                                <td>ali@uot.edu.pk</td>
+                                <td>+92-300-1234567</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-view">View</button>
+                                    <button class="btn-small btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#EMP-002</td>
+                                <td>Ayesha Khan</td>
+                                <td>Cashier</td>
+                                <td>Cashier</td>
+                                <td>ayesha@uot.edu.pk</td>
+                                <td>+92-300-7654321</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-view">View</button>
+                                    <button class="btn-small btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#EMP-003</td>
+                                <td>Hassan Ahmed</td>
+                                <td>Delivery</td>
+                                <td>Delivery Staff</td>
+                                <td>hassan@uot.edu.pk</td>
+                                <td>+92-300-9876543</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-view">View</button>
+                                    <button class="btn-small btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#EMP-004</td>
+                                <td>Zainab Malik</td>
+                                <td>Management</td>
+                                <td>Manager</td>
+                                <td>zainab@uot.edu.pk</td>
+                                <td>+92-300-5555555</td>
+                                <td><span class="status-badge active">Active</span></td>
+                                <td class="actions">
+                                    <button class="btn-small btn-view">View</button>
+                                    <button class="btn-small btn-edit">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Account Page -->
+                <div id="account" class="page">
+                    <div class="page-header">
+                        <h2>Account Settings</h2>
+                    </div>
+                    <div class="settings-container">
+                        <div class="settings-section">
+                            <h3>Profile Information</h3>
+                            <form class="form">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" value="Admin Manager" placeholder="Enter your name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" value="admin@uot.edu.pk" placeholder="Enter your email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input type="tel" value="+92-300-1111111" placeholder="Enter your phone">
+                                </div>
+                                <button class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>Change Password</h3>
+                            <form class="form">
+                                <div class="form-group">
+                                    <label>Current Password</label>
+                                    <input type="password" placeholder="Enter current password">
+                                </div>
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password" placeholder="Enter new password">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input type="password" placeholder="Confirm new password">
+                                </div>
+                                <button class="btn btn-primary">Update Password</button>
+                            </form>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>Preferences</h3>
+                            <form class="form">
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked>
+                                        Email Notifications
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" checked>
+                                        Low Stock Alerts
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox">
+                                        Daily Reports
+                                    </label>
+                                </div>
+                                <button class="btn btn-primary">Save Preferences</button>
+                            </form>
+                        </div>
+
+                        <div class="settings-section danger-zone">
+                            <h3>Danger Zone</h3>
+                            <p>Permanently delete your account and all data</p>
+                            <button class="btn btn-danger">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Add Item -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Item</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <form class="form">
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" placeholder="Enter item name">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select>
+                        <option>Food</option>
+                        <option>Beverages</option>
+                        <option>Snacks</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" placeholder="Enter quantity">
+                </div>
+                <div class="form-group">
+                    <label>Unit Price</label>
+                    <input type="number" placeholder="Enter price" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Reorder Level</label>
+                    <input type="number" placeholder="Enter reorder level">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
